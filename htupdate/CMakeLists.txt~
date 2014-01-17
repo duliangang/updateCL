@@ -1,0 +1,2 @@
+PROJECT ("FindInstallKb")
+ADD_SUBDIRECTORY(src)

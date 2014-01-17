@@ -1,0 +1,26 @@
+file(GLOB_RECURSE sources_Thread thread/*.cpp thread/*.h)
+file(GLOB_RECURSE sources_Log  log/*.cpp log/*.h)
+file(GLOB_RECURSE sources_util Utilities/*.cpp Utilities/*.h)
+file(GLOB sources_localdir *.cpp *.h)
+
+
+set(shared_STAT_SRCS
+  ${sources_localdir}
+  ${sources_Thread}
+  ${sources_Log}
+  ${sources_util}
+)
+
+include_directories(
+  ${CMAKE_BINARY_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/thread
+  ${CMAKE_CURRENT_SOURCE_DIR}/log
+  ${CMAKE_CURRENT_SOURCE_DIR}/config
+  ${CMAKE_CURRENT_SOURCE_DIR}/Utilities
+)
+
+add_library(share STATIC
+  ${shared_STAT_SRCS}
+)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
