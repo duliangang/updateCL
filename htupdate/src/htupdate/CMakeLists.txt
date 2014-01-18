@@ -9,5 +9,6 @@ include_directories(${CMAKE_BINARY_DIR}
 		    ${CMAKE_SOURCE_DIR}/src/shared/log
 		    ${CMAKE_SOURCE_DIR}/src/shared/thread
 		    ${CMAKE_SOURCE_DIR}/src/shared/config
+		    ${CMAKE_SOURCE_DIR}/src/shared/Utilities
 		    ${sources_Product})
 ADD_EXECUTABLE("htupdate" ${HTUPDATE_STAT_SRCS})

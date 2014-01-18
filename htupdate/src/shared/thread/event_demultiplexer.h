@@ -120,7 +120,4 @@ private:
     int  m_fd_num;   ///< 所有fd的个数
 };
 
-
-
-
 #endif // REACTOR_EVENT_DEMULTIPLEXER_H_

@@ -1,7 +1,10 @@
+#ifndef _PRODUCT_H_
+#define _PRODUCT_H_
 #include <string>
 #include <stdint.h>
 #include <boost/thread.hpp>
 #include <map>
+#include "pstdint.h"
 struct ProductData
 {
 	int64_t progid;
@@ -10,36 +13,7 @@ struct ProductData
 	std::string version;
 	std::string userid;
 };
-enum ProductStatus
-{
-	PRODUCT_STATU_CREATE=0x00,
-	PRODUCT_STATU_CREATED,
-	PRODUCT_STATU_CREATE_FAIL,
-
-	PRODUCT_STATU_SERVER_SELECT,
-	PRODUCT_STATU_SERVER_SELECTING,
-	PRODUCT_STATU_SERVER_SELECTED,
-	PRODUCT_STATU_SERVER_SELECT_FAIL,
-	
-	PRODUCT_STATU_GET_SERVER_FILELIST,
-	PRODUCT_STATU_GET_SERVER_FILELISTING,
-	PRODUCT_STATU_GET_SERVER_FILELISTED,
-	PRODUCT_STATU_GET_SERVER_FILELIST_FAIL,
-
-	PRODUCT_STATU_CHECK_UPDATE,
-	PRODUCT_STATU_CHECK_UPDATING,
-	PRODUCT_STATU_CHECK_UPDATED,
-	PRODUCT_STATU_CHECK_UPDATE_FAIL,
-
-	PRODUCT_STATU_UPDATE,
-	PRODUCT_STATU_UPDATING,
-	PRODUCT_STATU_UPDATED,
-	PRODUCT_STATU_UPDATE_FAIL,
-
-	PRODUCT_STATU_COMPLETE,
-
-	PRODUCT_STATU_END,
-};
+class ServerSeesion;
 enum DownloadLever
 {
 	STATE_NOT_SET,
@@ -53,39 +27,41 @@ class Product:boost::noncopyable
 {
 public:
 
+	friend class ProductManage;
+
 	Product(const ProductData& data);
 
 	const ProductData* getData()const;
 
-	int SetStatus(int cur_status,int change_status);
-
-	int RegisiterTask(int status,boost::function<void()> TaskFun);
-
-	const std::string& GetFilelistTxtUrl();
+	const std::string& GetFilelistTxtUrl()const;
 
 	bool setServerFileListTxt(const char* file_path);
 
 	bool SetServerProductInformat(const std::string& xmlString);
 
-	const FileInformatList& getLocalFileInfoList();
+	const FileInformatList& getLocalFileInfoList()const;
 
-	const FileInformatList& getServerFileInfoList();
+	const FileInformatList& getServerFileInfoList()const;
 
-	DownloadLever getDownloadLevel();
+	DownloadLever getDownloadLevel()const;
 
-	int64_t getWaitUntilWhenTime();
+	int64_t getWaitUntilWhenTime()const;
 
-	const std::string& getServerVersion();
+	const std::string& getServerVersion()const;
 
 	void setLoacalVersion(const char* newVersion);
 
-	bool isDestory();
+	uint32_t GetStatus()const;
+
+	ServerSeesion* GetServerSession();
 
 protected:
 
+	uint32_t SetStatus(uint32_t change_status);
+
 	bool LoadLocalFileList();
 
-	ProductStatus m_ProductStatus;
+	uint32_t m_status;
 
 	DownloadLever m_DownloadLevel;
 
@@ -99,5 +75,8 @@ protected:
 
 	int64_t m_WaitUntileWhenTime;
 
-	bool IsDestory;
+	bool m_IsDestory;
+
+	ServerSeesion* m_ServerSeesion;
 };
+#endif

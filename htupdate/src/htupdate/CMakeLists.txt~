@@ -6,8 +6,8 @@ SET(HTUPDATE_STAT_SRCS
 	${sources_localdir})
 include_directories(${CMAKE_BINARY_DIR}
   		    ${CMAKE_CURRENT_SOURCE_DIR}
-		    ${CMAKE_SOURCE_DIR}/src/share/shared/log
-		    ${CMAKE_SOURCE_DIR}/src/share/shared/thread
-		    ${CMAKE_SOURCE_DIR}/src/share/shared/config
+		    ${CMAKE_SOURCE_DIR}/src/shared/log
+		    ${CMAKE_SOURCE_DIR}/src/shared/thread
+		    ${CMAKE_SOURCE_DIR}/src/shared/config
 		    ${sources_Product})
 ADD_EXECUTABLE("htupdate" ${HTUPDATE_STAT_SRCS})
